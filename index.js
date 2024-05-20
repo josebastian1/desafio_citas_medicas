@@ -15,14 +15,12 @@ app.listen(3000, () => {
 });
 
 // Array vacío de usuarios
-
 let usuarios = [];
 
 // Fecha de registro con formato solicitado
 var fecha = moment().format("MMMM Do YYYY, hh:mm:ss a");
 
 // Consultar a la API para extraer el nombre, apellido y genero
-
 const getData = async () => {
     let url = "https://randomuser.me/api/";
 
@@ -37,7 +35,6 @@ const getData = async () => {
 }
 
 //Crear nuevo usuario
-
 app.post("/usuarios", async (req, res) => {
 
     let { name, lastName, gender } = await getData();
@@ -57,10 +54,9 @@ app.post("/usuarios", async (req, res) => {
     })
 })
 
-
 // Consultar lista de usuarios guardados
-
 app.get("/usuarios", (req, res) => {
+
     // Agrupar usuarios por genero
     const dividirUsuarios = _.groupBy(usuarios, 'sexo');
     const usuariosPorGenero = {
@@ -72,7 +68,6 @@ app.get("/usuarios", (req, res) => {
     let contadorMujeres = 1;
 
     //Imprimir resultados en html
-
     let html = `
         <h2>Hombres:</h2>
         <ul>
@@ -88,9 +83,7 @@ app.get("/usuarios", (req, res) => {
 
     res.send(html);
 
-
     //Imprimir resultados en consola con el formato solicitado
-
     console.log(chalk.bgWhite.blue("Hombres:"));
 
     usuariosPorGenero.hombres.forEach(hombre => {
@@ -104,5 +97,4 @@ app.get("/usuarios", (req, res) => {
         console.log(chalk.bgWhite.blue(`${contadorMujeres}_ Nombre: ${mujer.nombre} - Apellido: ${mujer.apellido} - ID: ${mujer.id} - Fecha de registro: ${mujer.fecha_registro}`));
         contadorMujeres++;
     });
-
 })
